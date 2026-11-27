@@ -2,6 +2,19 @@
 
 Projeto desenvolvido para a atividade **MAPA** da disciplina **Linguagem de Programação** do curso de **Ciência de Dados e Análise do Comportamento (UniCesumar)**.
 
+## 🧭 Navegação Rápida
+* [1. Contextualização e Objetivo](#-1-contextualização-e-objetivo)
+* [2. Código-Fonte Completo e Documentado](#-2-código-fonte-completo-e-documentado)
+* [3. Teste de Mesa (Massa de Dados de Validação)](#-3-teste-de-mesa-massa-de-dados-de-validação)
+* [4. Resolução das Questões e Evidências de Execução](#-4-resolução-das-questões-e-evidências-de-execução)
+  * [Questão A — Acesso a chave inexistente (Figura 1)](#questão-a)
+  * [Questão B — Remoção da condição de limite (Figuras 2 e 3)](#questão-b)
+  * [Questão C — Entrada não numérica e robustez (Figuras 4, 5, 6 e 7)](#questão-c)
+  * [Questão D — Função da linha `cont += 1` (Figura 8)](#questão-d)
+* [5. Referências e Ferramentas](#-5-referências-e-ferramentas)
+
+---
+
 ## 📋 1. Contextualização e Objetivo
 
 O projeto consiste em uma aplicação de linha de comando (CLI) desenvolvida em Python para o cadastro e a listagem de até **5 freelancers**. Cada registro armazena um código identificador único (`cod`), nome, e-mail, linguagem de programação principal e valor por hora trabalhada.
@@ -10,7 +23,7 @@ O projeto consiste em uma aplicação de linha de comando (CLI) desenvolvida em 
 
 ## 💻 2. Código-Fonte Completo e Documentado
 
-O código abaixo apresenta a implementação original completamente documentada com explicações sobre estruturas de dados (`list` e `dict`), funções auxiliares, controle de fluxo e tratamento de entradas (disponível também no arquivo [`mapa.py`](./mapa.py)).
+O código completo e comentado pode ser acessado diretamente no arquivo [`mapa.py`](./mapa.py) ou visualizado abaixo:
 
 ```python
 # ==============================================================================
