@@ -144,6 +144,7 @@ Para validar o comportamento do sistema e simular os cenários das questões aba
 Ao alterar a chave para `freelancer["preco"]`, o programa consegue cadastrar os freelancers normalmente (opção 1), mas falha ao tentar exibi-los (opção 2). Quando a função `imprime()` é chamada, ela exibe apenas os quatro primeiros campos do primeiro registro (`cod`, `nome`, `email` e `linguagem`) e, ao tentar acessar a chave `"preco"` — que não existe no dicionário, pois o dado foi armazenado sob a chave `"valor"` —, o Python interrompe a execução imediatamente gerando uma exceção do tipo `KeyError: 'preco'`, encerrando o programa de forma abrupta ([Figura 1](./imagens/figura1_keyerror.png)).
 
 ![Figura 1](imagens/figura1_keyerror.png)
+
 *Figura 1. Resultado do tipo de erro `KeyError: 'preco'`, encerrando o programa de forma abrupta ([abrir imagem em tela cheia](./imagens/figura1_keyerror.png)).*
 
 ---
@@ -155,11 +156,13 @@ Ao alterar a chave para `freelancer["preco"]`, o programa consegue cadastrar os 
 * **Do ponto de vista sintático (remoção literal da linha):** Caso apenas a linha `if len(lista) < 5:` seja apagada sem ajustar o recuo (indentação) do bloco interno e sem remover o `else:` correspondente, o Python impedirá a execução do programa logo na leitura do arquivo, acusando um erro de sintaxe (`IndentationError: unindent does not match any outer indentation level`), pois o bloco fica recuado sem uma instrução condicional acima dele e o `else:` fica sem um `if` correspondente ([Figura 2](./imagens/figura2_indentation_error.png)).
 
 ![Figura 2](imagens/figura2_indentation_error.png)
+
 *Figura 2. Resultado ao apagar a linha `if len(lista) < 5:` sem ajustar o recuo (indentação) do bloco interno e sem remover o `else:` correspondente ([abrir imagem em tela cheia](./imagens/figura2_indentation_error.png)).*
 
 * **Do ponto de vista funcional (ajustando a estrutura do bloco):** Se a estrutura condicional de verificação de tamanho for removida corretamente (ajustando a indentação e removendo o `else:`), o programa executará normalmente, mas perderá a regra de negócio que limita o sistema a no máximo 5 cadastros. Com isso, o usuário poderá inserir freelancers indefinidamente na lista (6, 7 ou mais registros), e a mensagem `"Lista de freelancers lotada!"` nunca será exibida ([Figura 3](./imagens/figura3_lista_ilimitada.png)).
 
 ![Figura 3](imagens/figura3_lista_ilimitada.png)
+
 *Figura 3. Resultado ao apagar a linha `if len(lista) < 5:` ajustando o recuo (indentação) do bloco interno e removendo o `else:`. Observa-se que o programa permite cadastrar mais de 5 freelancers sem exibir a mensagem de lista lotada ([abrir imagem em tela cheia](./imagens/figura3_lista_ilimitada.png)).*
 
 ---
@@ -171,6 +174,7 @@ Ao alterar a chave para `freelancer["preco"]`, o programa consegue cadastrar os 
 A instrução `op = int(input())` lê a opção digitada pelo usuário e converte de texto (`str`) para inteiro (`int`). É justamente essa conversão que falha quando o usuário digita um valor não numérico (como `"dois"`), pois a função `int()` não consegue converter esse texto para um número inteiro na base 10. Como não há tratamento de erro no código original, o Python lança a exceção `ValueError: invalid literal for int() with base 10: 'dois'` e interrompe a execução do programa imediatamente de forma abrupta ([Figura 4](./imagens/figura4_value_error.png)).
 
 ![Figura 4](imagens/figura4_value_error.png)
+
 *Figura 4. Resultado quando o usuário digita um valor não numérico (como `"dois"`) ([abrir imagem em tela cheia](./imagens/figura4_value_error.png)).*
 
 Para melhorar a robustez do código contra entradas inválidas em Python, existem duas formas principais de impedir que o programa trave:
@@ -179,15 +183,18 @@ Para melhorar a robustez do código contra entradas inválidas em Python, existe
 Envolve a leitura e a conversão em um bloco `try / except` (dentro de um laço `while True`) para capturar o `ValueError`, exibir uma mensagem amigável orientando o usuário a digitar apenas números e solicitar a entrada novamente sem encerrar o sistema ([Figura 5](./imagens/figura5_codigo_try_except.png) e [Figura 6](./imagens/figura6_saida_try_except.png)).
 
 ![Figura 5](imagens/figura5_codigo_try_except.png)
+
 *Figura 5. Abordagem 1: Usando `try / except` (padrão recomendado em Python) ([abrir imagem em tela cheia](./imagens/figura5_codigo_try_except.png)).*
 
 ![Figura 6](imagens/figura6_saida_try_except.png)
+
 *Figura 6. Resultado após a implementação do `try / except ValueError` ([abrir imagem em tela cheia](./imagens/figura6_saida_try_except.png)).*
 
 #### 2. Validação condicional prévia (`.isdigit()`)
 Lê a entrada primeiro como texto (`entrada = input()`) e verifica com `if entrada.isdigit():` se todos os caracteres são dígitos numéricos antes de executar a conversão `int(entrada)` ([Figura 7](./imagens/figura7_codigo_isdigit.png)).
 
 ![Figura 7](imagens/figura7_codigo_isdigit.png)
+
 *Figura 7. Abordagem 2: Usando validação condicional com `.isdigit()` ([abrir imagem em tela cheia](./imagens/figura7_codigo_isdigit.png)).*
 
 ---
@@ -200,6 +207,7 @@ Lê a entrada primeiro como texto (`entrada = input()`) e verifica com `if entra
 * **Consequência caso a linha `cont += 1` fosse removida:** O programa continuaria funcionando e o limite máximo de 5 cadastros não seria afetado, pois esse controle é feito pelo tamanho da lista (`if len(lista) < 5:`), e não pela variável `cont`. No entanto, como `cont` foi inicializado com `0` e nunca seria atualizado, todos os freelancers cadastrados receberiam o mesmo código (`Código do freelancer: 0`), violando a regra de identificação única de cada registro ([Figura 8](./imagens/figura8_codigos_repetidos.png)).
 
 ![Figura 8](imagens/figura8_codigos_repetidos.png)
+
 *Figura 8. Resultado com a remoção da linha `cont += 1`. Todos os freelancers cadastrados receberam o mesmo código (`Código do freelancer: 0`), violando a regra de identificação única de cada registro ([abrir imagem em tela cheia](./imagens/figura8_codigos_repetidos.png)).*
 
 ---
