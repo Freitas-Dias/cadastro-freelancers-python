@@ -150,6 +150,7 @@ Caso exista pelo menos um freelancer cadastrado, essa tentativa de acessar uma c
 É importante observar que, se a lista estiver vazia, o erro não ocorrerá, pois o laço `for` da função `imprime()` não será executado e, consequentemente, a chave inexistente não será acessada. Portanto, para corrigir o problema, é necessário manter a correspondência entre o nome da chave utilizada no armazenamento e aquele utilizado na recuperação dos dados, empregando `freelancer["valor"]` nos dois momentos.
 
 ![Figura 1](imagens/figura1_keyerror.png)
+
 *Figura 1. Resultado da tentativa de acesso à chave inexistente `"preco"` no dicionário, provocando a exceção `KeyError` durante a exibição dos dados de um freelancer cadastrado. Fonte: Elaborado pelo autor (2026), com imagem gerada na ferramenta Carbon (CARBON, [s. d.]) ([abrir imagem em tela cheia](./imagens/figura1_keyerror.png)).*
 
 ---
@@ -161,11 +162,13 @@ Caso exista pelo menos um freelancer cadastrado, essa tentativa de acessar uma c
 * **Do ponto de vista sintático (remoção literal da linha):** Caso apenas a linha `if len(lista) < 5:` seja removida, sem reorganizar a indentação e sem excluir o `else:` correspondente, a estrutura do código poderá ficar inconsistente. Como o recuo faz parte da sintaxe das estruturas condicionais (OLIVEIRA, 2023, p. 47), o resultado depende do que acontece com o `else:`. No código fornecido, o bloco de cadastro tem 12 espaços de recuo e o `else:` tem 8. Ao remover apenas o `if`, o bloco continua válido, pois passa a ser o corpo do `if op == 1:` (4 espaços), mas o `else:` fica com um recuo que não corresponde a nenhum nível anterior (0, 4 e 12). Por isso, o Python acusa um `IndentationError` na linha do `else:`, antes de executar qualquer instrução ([Figura 2](./imagens/figura2_indentation_error.png)). Já um `SyntaxError` ocorre quando o recuo do bloco é reduzido ao nível do `else:` sem que ele seja removido, pois o `else:` passa a não ter um `if` correspondente.
 
 ![Figura 2](imagens/figura2_indentation_error.png)
+
 *Figura 2. Resultado da remoção da linha `if len(lista) < 5:` sem os ajustes necessários na indentação e na estrutura condicional, ocasionando um erro que impede a execução do programa. Fonte: Elaborado pelo autor (2026), com imagem gerada na ferramenta Carbon (CARBON, [s. d.]) ([abrir imagem em tela cheia](./imagens/figura2_indentation_error.png)).*
 
 * **Do ponto de vista funcional (ajustando a estrutura do bloco):** Se a condição responsável por verificar o tamanho da lista for removida corretamente, com o devido ajuste da indentação e a exclusão do `else:` correspondente, o programa continuará executando normalmente. Entretanto, perderá a regra de negócio que estabelece o limite máximo de cinco cadastros. Consequentemente, o usuário poderá inserir mais de cinco freelancers na lista, sem que o programa apresente a mensagem `"Lista de freelancers lotada!"`. Isso acontece porque a condição `if len(lista) < 5:` é responsável por verificar a quantidade de registros existentes antes de permitir uma nova inserção. Sem essa verificação, não haverá controle sobre o número máximo de cadastros ([Figura 3](./imagens/figura3_lista_ilimitada.png)).
 
 ![Figura 3](imagens/figura3_lista_ilimitada.png)
+
 *Figura 3. Resultado da remoção da condição `if len(lista) < 5:` com os ajustes de indentação e estrutura condicional. Observa-se que o programa permite cadastrar mais de cinco freelancers, sem apresentar a mensagem de lista lotada. Fonte: Elaborado pelo autor (2026), com imagem gerada na ferramenta Carbon (CARBON, [s. d.]) ([abrir imagem em tela cheia](./imagens/figura3_lista_ilimitada.png)).*
 
 ---
@@ -177,6 +180,7 @@ Caso exista pelo menos um freelancer cadastrado, essa tentativa de acessar uma c
 A instrução `op = int(input())` recebe a opção digitada pelo usuário por meio da função `input()` e converte o conteúdo recebido, inicialmente do tipo string (`str`), para um número inteiro (`int`) (OLIVEIRA, 2023, p. 33). Quando o usuário digita um valor não numérico, como `"dois"`, a função `int()` não consegue realizar a conversão, pois o texto informado não representa um número inteiro válido. Como o código original não apresenta nenhum tratamento de exceções nessa instrução, o Python gera uma exceção do tipo `ValueError`, interrompendo a execução do programa de forma abrupta ([Figura 4](./imagens/figura4_value_error.png)).
 
 ![Figura 4](imagens/figura4_value_error.png)
+
 *Figura 4. Resultado da execução do programa quando o usuário informa um valor não numérico na entrada da opção do menu, provocando a exceção `ValueError`. Fonte: Elaborado pelo autor (2026), com imagem gerada na ferramenta Carbon (CARBON, [s. d.]) ([abrir imagem em tela cheia](./imagens/figura4_value_error.png)).*
 
 Para melhorar a robustez do programa e evitar que uma entrada inválida encerre sua execução inesperadamente, podem ser utilizadas duas abordagens de validação:
@@ -187,9 +191,11 @@ Uma das formas mais recomendadas de tratar esse problema em Python é utilizar a
 No bloco `try`, a conversão `int(input())` é executada e, se der certo, o `break` encerra o laço de validação. Se ocorrer um `ValueError`, o bloco `except` exibe a mensagem de orientação e o laço repete a leitura, sem encerrar o programa ([Figura 5](./imagens/figura5_codigo_try_except.png) e [Figura 6](./imagens/figura6_saida_try_except.png)).
 
 ![Figura 5](imagens/figura5_codigo_try_except.png)
+
 *Figura 5. Implementação da validação da entrada do usuário utilizando `try/except ValueError`, permitindo capturar erros de conversão para números inteiros. Fonte: Elaborado pelo autor (2026), com imagem gerada na ferramenta Carbon (CARBON, [s. d.]) ([abrir imagem em tela cheia](./imagens/figura5_codigo_try_except.png)).*
 
 ![Figura 6](imagens/figura6_saida_try_except.png)
+
 *Figura 6. Resultado da execução após a implementação de `try/except ValueError`. O programa identifica a entrada inválida, apresenta uma mensagem de orientação e solicita novamente a opção ao usuário. Fonte: Elaborado pelo autor (2026), com imagem gerada na ferramenta Carbon (CARBON, [s. d.]) ([abrir imagem em tela cheia](./imagens/figura6_saida_try_except.png)).*
 
 #### Abordagem 2: Validação condicional prévia (`.isdigit()`)
@@ -198,9 +204,11 @@ Outra possibilidade consiste em receber inicialmente a entrada como texto e util
 Entretanto, o método `.isdigit()` apresenta algumas limitações. Ele não reconhece entradas com sinal negativo, como `"-1"`, nem entradas que contenham espaços em branco, como `" 2 "`. Além disso, determinados caracteres reconhecidos como dígitos pelo método podem não ser aceitos diretamente pela função `int()` (PYTHON SOFTWARE FOUNDATION, [s. d.b]).
 
 ![Figura 7](imagens/figura7_codigo_isdigit.png)
+
 *Figura 7. Implementação da validação condicional da entrada do usuário utilizando o método `.isdigit()` antes da conversão para inteiro. O comando `continue`, no bloco `else`, devolve o fluxo ao início do laço principal. Fonte: Elaborado pelo autor (2026), com imagem gerada na ferramenta Carbon (CARBON, [s. d.]) ([abrir imagem em tela cheia](./imagens/figura7_codigo_isdigit.png)).*
 
 ![Figura 8](imagens/figura8_saida_isdigit.png)
+
 *Figura 8. Resultado da execução com a validação `.isdigit()`: ao digitar um valor não numérico (`"dois"`), o programa exibe uma única mensagem de erro e reapresenta o menu, sem passar pelo ramo de opção inválida. Fonte: Elaborado pelo autor (2026), com imagem gerada na ferramenta Carbon (CARBON, [s. d.]) ([abrir imagem em tela cheia](./imagens/figura8_saida_isdigit.png)).*
 
 Portanto, embora `.isdigit()` possa ser utilizado em validações simples de entradas compostas apenas por dígitos, o tratamento de exceções com `try/except ValueError` é uma alternativa mais robusta para lidar com diferentes situações de conversão.
@@ -215,6 +223,7 @@ Portanto, embora `.isdigit()` possa ser utilizado em validações simples de ent
 * **Consequência caso a linha `cont += 1` fosse removida:** Se a linha `cont += 1` fosse removida, o programa continuaria funcionando e o limite máximo de cinco cadastros permaneceria ativo, pois esse controle é realizado pela condição `if len(lista) < 5:`, que verifica a quantidade de elementos armazenados na lista. Entretanto, como a variável `cont` seria inicializada com zero e não teria seu valor atualizado durante os novos cadastros, todos os freelancers receberiam o mesmo código identificador: `0`. Consequentemente, o programa perderia a sequência de identificação dos registros, fazendo com que diferentes freelancers fossem cadastrados com códigos repetidos, comprometendo a identificação individual de cada registro ([Figura 9](./imagens/figura9_codigos_repetidos.png)).
 
 ![Figura 9](imagens/figura9_codigos_repetidos.png)
+
 *Figura 9. Resultado da execução do programa após a remoção da linha `cont += 1`. Observa-se que todos os freelancers cadastrados recebem o mesmo código identificador (`0`), demonstrando a perda da identificação sequencial dos registros. Fonte: Elaborado pelo autor (2026), com imagem gerada na ferramenta Carbon (CARBON, [s. d.]) ([abrir imagem em tela cheia](./imagens/figura9_codigos_repetidos.png)).*
 
 ---
